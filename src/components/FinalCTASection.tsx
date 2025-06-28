@@ -14,39 +14,78 @@ const FinalCTASection = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+//   const handleSubmit = (e: React.FormEvent) => {
+//     e.preventDefault();
     
-    // Create mailto link with form data
-    const subject = encodeURIComponent('Demo Request - BillQ Smart Order Management');
-    const body = encodeURIComponent(`
-Demo Request Details:
+//     // Create mailto link with form data
+//     const subject = encodeURIComponent('Demo Request - BillQ Smart Order Management');
+//     const body = encodeURIComponent(`
+// Demo Request Details:
+
+// Name: ${formData.name}
+// Mobile: ${formData.mobile}
+// Business Type: ${formData.businessType}
+// Preferred Usage: ${formData.preferredUsage}
+
+// Please contact me for a demo of BillQ Smart Order Management System.
+//     `);
+    
+//     const mailtoLink = `mailto:support@billq.co.in?subject=${subject}&body=${body}`;
+//     window.open(mailtoLink);
+    
+//     // Also open WhatsApp with the same details
+//     const whatsappMessage = encodeURIComponent(`Hi, I'm interested in BillQ demo.
+// Name: ${formData.name}
+// Mobile: ${formData.mobile}
+// Business: ${formData.businessType}
+// Preferred: ${formData.preferredUsage}`);
+    
+//     setTimeout(() => {
+//       window.open(`https://wa.me/918220760340?text=${whatsappMessage}`, '_blank');
+//     }, 1000);
+    
+//     setIsSubmitted(true);
+//     setTimeout(() => setIsSubmitted(false), 5000);
+//   };
+
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+//   const subject = 'Demo Request - BillQ Smart Order Management';
+//   const plainMessage = `
+// Demo Request Details:
+
+// Name: ${formData.name}
+// Mobile: ${formData.mobile}
+// Business Type: ${formData.businessType}
+// Preferred Usage: ${formData.preferredUsage}
+
+// Please contact me for a demo of BillQ Smart Order Management System.
+//   `;
+
+//   // Email
+//   const mailtoLink = `mailto:support@billq.co.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainMessage)}`;
+//   window.open(mailtoLink, '_blank');
+
+  // WhatsApp
+  const whatsappMessage = `Hi, I'm interested in BillQ demo.
 
 Name: ${formData.name}
 Mobile: ${formData.mobile}
 Business Type: ${formData.businessType}
-Preferred Usage: ${formData.preferredUsage}
+Preferred Usage: ${formData.preferredUsage}`;
 
-Please contact me for a demo of BillQ Smart Order Management System.
-    `);
-    
-    const mailtoLink = `mailto:support@billq.co.in?subject=${subject}&body=${body}`;
-    window.open(mailtoLink);
-    
-    // Also open WhatsApp with the same details
-    const whatsappMessage = encodeURIComponent(`Hi, I'm interested in BillQ demo.
-Name: ${formData.name}
-Mobile: ${formData.mobile}
-Business: ${formData.businessType}
-Preferred: ${formData.preferredUsage}`);
-    
-    setTimeout(() => {
-      window.open(`https://wa.me/918220760340?text=${whatsappMessage}`, '_blank');
-    }, 1000);
-    
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
-  };
+  const whatsappNumber = '918220760340'; // replace if needed
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+  
+  setTimeout(() => {
+    window.open(whatsappLink, '_blank');
+  }, 800); // small delay to ensure mailto opens first
+
+  setIsSubmitted(true);
+  setTimeout(() => setIsSubmitted(false), 5000);
+};
+
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));

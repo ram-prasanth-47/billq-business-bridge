@@ -24,41 +24,79 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     setIsLoading(true);
     
-    // Create mailto link with form data
-    const subject = encodeURIComponent('Demo Request - BillQ Smart Order Management');
-    const body = encodeURIComponent(`
-Demo Request Details:
+//     // Create mailto link with form data
+//     const subject = encodeURIComponent('Demo Request - BillQ Smart Order Management');
+//     const body = encodeURIComponent(`
+// Demo Request Details:
 
-Name: ${formData.fullName}
-Email: ${formData.email}
-Mobile: ${formData.mobile}
-Business Type: ${formData.businessType}
-Requirements: ${formData.requirements}
+// Name: ${formData.fullName}
+// Email: ${formData.email}
+// Mobile: ${formData.mobile}
+// Business Type: ${formData.businessType}
+// Requirements: ${formData.requirements}
 
-Please contact me for a demo of BillQ Smart Order Management System.
-    `);
+// Please contact me for a demo of BillQ Smart Order Management System.
+//     `);
     
-    const mailtoLink = `mailto:support@billq.co.in?subject=${subject}&body=${body}`;
-    window.open(mailtoLink);
+//     const mailtoLink = `mailto:support@billq.co.in?subject=${subject}&body=${body}`;
+//     window.open(mailtoLink);
     
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsSubmitted(false);
-      onClose();
-      setFormData({
-        fullName: '',
-        email: '',
-        mobile: '',
-        businessType: '',
-        requirements: ''
-      });
-    }, 2000);
-  };
+//     setIsSubmitted(true);
+//     setTimeout(() => {
+//       setIsLoading(false);
+//       setIsSubmitted(false);
+//       onClose();
+//       setFormData({
+//         fullName: '',
+//         email: '',
+//         mobile: '',
+//         businessType: '',
+//         requirements: ''
+//       });
+//     }, 2000);
+//   };
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+
+  const message = `
+*Demo Request - BillQ Smart Order Management*
+
+*Name:* ${formData.fullName}
+*Email:* ${formData.email}
+*Mobile:* ${formData.mobile}
+*Business Type:* ${formData.businessType}
+*Requirements:* ${formData.requirements || 'N/A'}
+
+Please contact me for a demo.
+  `;
+
+  // ✅ Replace with your WhatsApp number (international format, no + sign)
+  const whatsappNumber = '918220760340';
+
+  // Open WhatsApp with pre-filled message
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappLink, '_blank');
+
+  setIsSubmitted(true);
+  setTimeout(() => {
+    setIsLoading(false);
+    setIsSubmitted(false);
+    onClose();
+    setFormData({
+      fullName: '',
+      email: '',
+      mobile: '',
+      businessType: '',
+      requirements: ''
+    });
+  }, 2000);
+};
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
